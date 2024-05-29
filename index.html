@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function fetchData()
+        {
+            let data =fetch("https://fakestoreapi.com/products");
+            return data;
+        }
+        async function getFetchData()
+        {
+            let data=await fetchData();
+            let response=await data.json();
+            let getDiv=document.createElement("div");
+            document.body.appendChild(getDiv);
+            getDiv.setAttribute("style","background-color: gainsboro;")
+
+            for(i of response)
+            {
+                let getDetail=document.createElement("details");
+                getDetail.setAttribute("style","border:1px solid;border-radius:20px;background-color:whitesmoke;display:flex;align-items:center;");
+
+                let getTitle=document.createElement("summary");
+                getTitle.setAttribute("style","padding:20px;font-size: 20px;")
+                let getCategory=document.createElement("p");
+                let getImage=document.createElement("img");
+                getImage.style.width="150px";
+                let getDescription=document.createElement("p");
+                getDescription.setAttribute("style","font-size:20px")
+                let getPrice=document.createElement("h3");
+                let getRating=document.createElement("h3");
+
+                getTitle.innerHTML=i.title;
+                getCategory.innerHTML="Category :   "+i.category;
+                getImage.src=i.image;
+                getDescription.innerHTML="Description :   "+i.description;
+                getPrice.innerHTML="Price :   ₹"+i.price;
+                getRating.innerHTML="Rating :   "+i.rating.rate+"&#9733";
+                
+                getDetail.appendChild(getTitle);
+                getDetail.appendChild(getCategory);
+                getDetail.appendChild(getImage);
+                getDetail.appendChild(getDescription);
+                getDetail.appendChild(getPrice);
+                getDetail.appendChild(getRating);
+                getDiv.appendChild(getDetail);
+              
+            }
+        }   
+        getFetchData();
+    </script>
+</body>
+</html>
